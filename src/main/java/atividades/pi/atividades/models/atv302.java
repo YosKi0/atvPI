@@ -39,4 +39,9 @@ public class atv302 {
 		this.horario = horario;
 	}
 
+	@Override
+	public String toString() {
+		return "atv302 [nome=" + nome + ", local=" + local + ", data=" + data + ", horario=" + horario + "]";
+	}
+
 }
