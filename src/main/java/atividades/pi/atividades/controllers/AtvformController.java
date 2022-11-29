@@ -23,9 +23,9 @@ public class AtvformController {
 		/*Se eu colocar para ele receber um objeto já montado, ele vai criar esse objeto
 		 *e vincular os dados dentro dele*/
 		
-		
 		System.out.println(atv302);
 		
 		return "atv-adicionado";
 	}
+	
 }
