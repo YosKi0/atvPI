@@ -1,14 +1,19 @@
 package atividades.pi.atividades.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import atividades.pi.atividades.models.atv302;
+import atividades.pi.atividades.repositories.EventoRepository;
 
 @Controller
 public class AtvformController {
 
+	@Autowired
+	private  EventoRepository er;
+	
 	@RequestMapping("/atividades/form")
 	public String form() {
 		return "formAtv";
@@ -24,6 +29,7 @@ public class AtvformController {
 		 *e vincular os dados dentro dele*/
 		
 		System.out.println(atv302);
+		er.save(atv302);
 		
 		return "atv-adicionado";
 	}
