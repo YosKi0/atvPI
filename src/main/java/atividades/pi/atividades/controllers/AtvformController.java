@@ -16,7 +16,7 @@ public class AtvformController {
 	
 	@RequestMapping("/atividades/form")
 	public String form() {
-		return "formAtv";
+		return "eventos/formAtv";
 	}
 	
 	@PostMapping("/atividades")
@@ -31,7 +31,7 @@ public class AtvformController {
 		System.out.println(atv302);
 		er.save(atv302);
 		
-		return "atv-adicionado";
+		return "eventos/atv-adicionado";
 	}
 	
 }
