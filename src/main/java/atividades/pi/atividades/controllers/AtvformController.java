@@ -1,32 +1,31 @@
 package atividades.pi.atividades.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import atividades.pi.atividades.models.atv302;
 import atividades.pi.atividades.repositories.EventoRepository;
 
 @Controller
+@RequestMapping("/atividades")
 public class AtvformController {
 
 	@Autowired
 	private  EventoRepository er;
 	
-	@RequestMapping("/atividades/form")
+	@GetMapping("/atividades/form")
 	public String form() {
 		return "eventos/formAtv";
 	}
 	
-	@PostMapping("/atividades")
+	@PostMapping
 	public String adicionar(atv302 atv302) {
-		/*Para utilizar dados que vem das requisições basta colocar parâmetros com
-		 *o mesmo nome se eu colocar todos esses dados, todos vão ser carregados
-		 *e vão ser vinculados essas variavéis automaticamente*/
-		
-		/*Se eu colocar para ele receber um objeto já montado, ele vai criar esse objeto
-		 *e vincular os dados dentro dele*/
 		
 		System.out.println(atv302);
 		er.save(atv302);
@@ -34,4 +33,12 @@ public class AtvformController {
 		return "eventos/atv-adicionado";
 	}
 	
+	@GetMapping
+	public ModelAndView listar() {
+		
+		List<atv302> eventos = er.findAll();
+		ModelAndView mv = new ModelAndView("eventos/lista");
+		mv.addObject("eventos", eventos);
+		return mv;
+	}
 }
