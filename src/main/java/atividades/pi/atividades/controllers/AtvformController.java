@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import atividades.pi.atividades.models.atv302;
+import atividades.pi.atividades.models.convidado;
+import atividades.pi.atividades.repositories.ConvidadoRepository;
 import atividades.pi.atividades.repositories.EventoRepository;
 
 @Controller
@@ -20,6 +22,8 @@ public class AtvformController {
 
 	@Autowired
 	private EventoRepository er;
+	@Autowired
+	private ConvidadoRepository cr;
 
 	@GetMapping("/atividades/form")
 	public String form() {
@@ -57,6 +61,28 @@ public class AtvformController {
 		atv302 evento = opt.get();
 		md.addObject("evento", evento);
 		
+		List<convidado> convidados = cr.findByEvento(evento);
+		md.addObject("convidados", convidados);
+		
 		return md;
+	}
+	
+	@PostMapping("/{idEvento}")
+	public String salvarConvidado(@PathVariable Long idEvento, convidado convidado) {
+		
+		System.out.println("Id do evento: " + idEvento);
+		System.out.println(convidado);
+		
+		Optional<atv302> opt = er.findById(idEvento);
+		if(opt.isEmpty()) {
+			return "redirect:/eventos";
+		}
+		
+		atv302 evento = opt.get();
+		convidado.setEvento(evento);
+		
+		cr.save(convidado);
+		
+		return "redirect:/eventos/{idEvento}";
 	}
 }
