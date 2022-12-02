@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- Compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
 <meta charset="UTF-8">
 <title>ATV FORM</title>
 </head>
@@ -15,16 +16,24 @@
 
 		<table class="highlight">
 			<thead>
-				<tr th:each="e: ${eventos}">
-					<th th:text="${e.id}">Id</th>
-					<th ><a th:href="@{/eventos/{id}(id=${e.id})}"><span th:text="${e.nome}">Nome</span></a></th>
-					<th th:text="${e.local}">Local</th>
-					<th th:text="${e.data}">Data</th>
-					<th th:text="${e.horario}">Horário</th>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>Local</th>
+					<th>Data</th>
+					<th>Horário</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-
+				<tr th:each="e: ${eventos}">
+					<td th:text="${e.id}"></td>
+					<td ><a th:href="@{/atividades/{id}(id=${e.id})}"><span th:text="${e.nome}"></span></a></td>
+					<td th:text="${e.local}"></td>
+					<td th:text="${e.data}"></td>
+					<td th:text="${e.horario}"></td>
+					<td><a th:href="@/atividades/{id}/remover(id=${e.id})}">apagar</a></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
