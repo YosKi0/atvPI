@@ -2,9 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+
 <meta charset="UTF-8">
 <title>ATV FORM</title>
 </head>
@@ -28,11 +30,14 @@
 			<tbody>
 				<tr th:each="e: ${eventos}">
 					<td th:text="${e.id}"></td>
-					<td ><a th:href="@{/atividades/{id}(id=${e.id})}"><span th:text="${e.nome}"></span></a></td>
+					<td><a th:href="@{/atividades/{id}(id=${e.id})}"><span
+							th:text="${e.nome}"></span></a></td>
 					<td th:text="${e.local}"></td>
 					<td th:text="${e.data}"></td>
 					<td th:text="${e.horario}"></td>
-					<td><a th:href="@/atividades/{id}/remover(id=${e.id})}">apagar</a></td>
+					<td>
+					<a th:href="@/atividades/{id}/selecionar(id=${e.id})}"><i class="material-icons">edit</i></a>
+					<a th:href="@/atividades/{id}/remover(id=${e.id})}"> <i class="material-icons">delete</i></a></td>
 				</tr>
 			</tbody>
 		</table>
