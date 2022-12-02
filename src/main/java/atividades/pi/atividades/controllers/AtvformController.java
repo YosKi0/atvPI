@@ -26,12 +26,12 @@ public class AtvformController {
 	private ConvidadoRepository cr;
 
 	@GetMapping("/atividades/form")
-	public String form() {
+	public String form(atv302 evento) {
 		return "eventos/formAtv";
 	}
 
 	@PostMapping
-	public String adicionar(atv302 atv302) {
+	public String salvar(atv302 atv302) {
 
 		System.out.println(atv302);
 		er.save(atv302);
@@ -84,6 +84,50 @@ public class AtvformController {
 		cr.save(convidado);
 		
 		return "redirect:/eventos/{idEvento}";
+	}
+	
+	@GetMapping("/{id}/selecionar")
+	public ModelAndView selecionarEvento(@PathVariable Long id) {
+		ModelAndView md = new ModelAndView();
+		Optional<atv302> opt = er.findById(id);
+		if(opt.isEmpty()) {
+			md.setViewName("redirect:/eventos");
+			return md;
+		}
+		
+		atv302 evento = opt.get();
+		md.setViewName("eventos/formAtv");
+		md.addObject("evento", evento);
+		
+		return md;
+	}
+	
+	@GetMapping("/{idEvento}/convidados/{idConvidado}/selecionar")
+	public ModelAndView selecionarConvidado(@PathVariable Long idEvento, @PathVariable Long idConvidado ) {
+		ModelAndView md = new ModelAndView();
+		Optional<atv302> optEvento = er.findById(idEvento);
+		Optional<atv302> optConvidado = er.findById(idConvidado);
+
+		if(optEvento.isEmpty() || optConvidado.isEmpty()) {
+			md.setViewName("redirect:/eventos");
+			return md;
+		}
+		
+		atv302 evento = optEvento.get();
+		atv302 convidado = optConvidado.get();
+		
+		if(evento.getId() != convidado.getId()) {
+			md.setViewName("redirect:/eventos");
+			
+			return md;
+		}
+		
+		md.setViewName("eventos/detalhes");
+		md.addObject("convidado", convidado);
+		md.addObject("evento", evento);
+		md.addObject("convidados", cr.findByEvento(evento));
+		
+		return md;
 	}
 	
 	@GetMapping("/{id}/remover")

@@ -19,70 +19,86 @@
 				<div class="card">
 					<div class="card-content">
 						<span class="card-title">Evento</span>
-							<p><strong>Id:</strong><span th:text="${evento.id}"></span></p>
-							<p><strong>Nome:</strong><span th:text="${evento.nome}"></span></p>
-							<p><strong>Local:</strong><span th:text="${evento.local}"></span></p>
-							<p><strong>Data:</strong><span th:text="${evento.data}"></span></p>
-							<p><strong>Horário:</strong><span th:text="${evento.horario}"></span></p>
+						<p>
+							<strong>Id:</strong><span th:text="${evento.id}"></span>
+						</p>
+						<p>
+							<strong>Nome:</strong><span th:text="${evento.nome}"></span>
+						</p>
+						<p>
+							<strong>Local:</strong><span th:text="${evento.local}"></span>
+						</p>
+						<p>
+							<strong>Data:</strong><span th:text="${evento.data}"></span>
+						</p>
+						<p>
+							<strong>Horário:</strong><span th:text="${evento.horario}"></span>
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col s12">
 				<div class="card">
 					<div class="card-content">
 						<span class="card-title">Adicionar Convidado</span>
-							<form action="" method="post">
-								<div>
-									<label>Nome: </label> <input  type="text" name="nome">
-								</div>
-								<div>
-									<label>RG: </label> <input  type="text" name="rg">
-								</div>
-								<div>
+						<form th:action="@{/eventos/{idEvento}(idEvento=${evento.id})}" method="post">
+							<div>
+								<input type="hidden" name="id" th:value="${convidado.id}" readonly="readonly">				
+							</div>
+
+							<div>
+								<label>Nome: </label> <input type="text" name="nome" th:value="${convidado.nome}">
+							</div>
+							<div>
+								<label>RG: </label> <input type="text" name="rg" th:value="${convidado.rg}">
+							</div>
+							<div>
 								<button type="submit" class="btn">Salvar</button>
 								<button type="reset" class="btn">Limpar</button>
-								</div>
-							</form>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col s12">
 				<div class="card">
 					<div class="card-content">
 						<span class="card-title">Convidados</span>
-							<table>
-								<thead>
-									<tr>
-										<th th:each="c.id">Id</th>
-									</tr>
-									<tr>
-										<th th:each="c.nome">Nome</th>
-									</tr>
-									<tr>
-										<th th:each="c.rg">Rg</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="{c : convidados}">
-										<td th:each="${c.id}"></td>
-										<td th:each="${c.nome}"></td>
-										<td th:each="${c.rg}"></td>
-									</tr>
-								</tbody>
-							</table>
+						<table>
+							<thead>
+								<tr>
+									<th th:each="c.id">Id</th>
+									<th th:each="c.nome">Nome</th>
+									<th th:each="c.rg">Rg</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="{c : convidados}">
+									<td th:each="${c.id}"></td>
+									<td th:each="${c.nome}"></td>
+									<td th:each="${c.rg}"></td>
+									<td><a
+										th:href="@{/eventos/{idEvento}/convidados/{idConvidado}/selecionar(idEvento=${evento.id}, idConvidado=${c.id})}"><i
+											class="material-icons">edit</i></a> <a
+										th:href="@{/eventos/{idEvento}/convidados/{idConvidado}/remover(idEvento=${evento.id}, idConvidado=${c.id})} "><i
+											class="material-icons">delete</i></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
-	
-	
+
+
 </body>
 </html>
