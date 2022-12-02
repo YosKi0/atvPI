@@ -85,4 +85,22 @@ public class AtvformController {
 		
 		return "redirect:/eventos/{idEvento}";
 	}
+	
+	@GetMapping("/{id}/remover")
+	public String apagarEvento(@PathVariable Long id) {
+		
+		Optional<atv302> opt = er.findById(id);
+		
+		if(!opt.isEmpty()) {
+			atv302 evento = opt.get();
+			
+			List<convidado> convidados = cr.findByEvento(evento);
+			
+			cr.deleteAll(convidados);
+			er.delete(evento);
+		}
+		
+		return "redirect:/atividades";
+	}
+	
 }

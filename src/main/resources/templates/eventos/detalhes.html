@@ -70,9 +70,9 @@
 								</thead>
 								<tbody>
 									<tr th:each="{c : convidados}">
-										<td></td>
-										<td></td>
-										<td></td>
+										<td th:each="${c.id}"></td>
+										<td th:each="${c.nome}"></td>
+										<td th:each="${c.rg}"></td>
 									</tr>
 								</tbody>
 							</table>
